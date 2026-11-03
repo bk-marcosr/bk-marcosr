@@ -37,9 +37,10 @@ ASSETS = ROOT / "assets"
 LOGIN = os.environ.get("PROFILE_LOGIN", "bk-marcosr")
 LANGS = ("en", "pt")
 THEMES = {
-    # Zinc greys; colour only comes from the projects.
-    "dark": {"bg": "#18181b", "chip": "#27272a", "icon": "#27272a", "fg": "#fafafa", "mute": "#a1a1aa", "faint": "#71717a", "line": "#3f3f46"},
-    "light": {"bg": "#f4f4f5", "chip": "#e4e4e7", "icon": "#e4e4e7", "fg": "#09090b", "mute": "#52525b", "faint": "#a1a1aa", "line": "#d4d4d8"},
+    # GitHub's own Primer surfaces, so the blocks read as part of the page in both themes.
+    # Colour only comes from the projects.
+    "dark": {"bg": "#151b23", "chip": "#262c36", "icon": "#262c36", "fg": "#f0f6fc", "mute": "#9198a1", "faint": "#656c76", "line": "#3d444d"},
+    "light": {"bg": "#f6f8fa", "chip": "#e6eaef", "icon": "#e6eaef", "fg": "#1f2328", "mute": "#59636e", "faint": "#818b98", "line": "#d1d9e0"},
 }
 ACCENT = {"rotor": "#7aa2f7", "prazinho": "#2fc68a", "talos": "#ef5f67", "rigor": "#e9a23b"}
 
