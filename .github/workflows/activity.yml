@@ -1,0 +1,50 @@
+name: Activity card
+
+on:
+  schedule:
+    - cron: "17 6 * * *" # daily, 03:17 in Belém
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/readme/**"
+      - ".github/workflows/activity.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: activity-card
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: .github/readme/requirements.txt
+
+      - run: pip install -r .github/readme/requirements.txt
+
+      - name: Render
+        run: python .github/readme/build.py activity
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROFILE_LOGIN: ${{ github.repository_owner }}
+
+      - name: Commit if changed
+        run: |
+          git add assets/*/*/activity.svg
+          if git diff --cached --quiet; then
+            echo "Activity card unchanged."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: refresh activity card"
+          git push
