@@ -1,3 +1,0 @@
-uharfbuzz>=0.39
-fonttools>=4.50
-brotli>=1.1
